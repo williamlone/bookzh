@@ -1,2 +1,13 @@
-# Google App Engine generated folder
-appengine-generated/
+# 本地配置和数据库文件包含私密信息，不提交到 GitHub。
+config.py
+*.bat
+*.mdb
+*.ldb
+*.accdb
+
+# Python 运行缓存。
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
