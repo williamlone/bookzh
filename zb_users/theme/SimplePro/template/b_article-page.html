@@ -1,0 +1,26 @@
+﻿<div class="content alpha  cate<#article/category/id#> auth<#article/author/id#>">
+<script type="text/javascript">
+$("#blog-loading div").animate({width:"30%"})
+</script>
+    <div class="entry clearfix">
+        <h1><a class="post-title" href="<#article/url#>" rel="bookmark"><#article/title#></a></h1>
+	<div class="post-meta">
+		<div style="display:none"><span class="meta-view" id="spn<#article/id#>"></span>次围观<script type="text/javascript">AddViewCount(<#article/id#>)</script></div>
+	</div><!-- END post-meta -->
+        <div class="clear"></div>
+		<div class="entry-content">
+		<#article/content#>
+		</div>
+	<div class="post-bottom"><div class="post-tags-pig"><#template:article_tag#></div></div><!-- END post-bottom -->
+        </div><!-- END entry -->
+<!-- You can start editing here. -->
+<div id="commentsbox" class="commentboxhide">
+<h3 id="comments"><#article/commnums#> Comments</h3>
+	<#template:article_comment#>
+	<#template:article_comment_pagebar#>
+	<#template:article_commentpost#>
+</div>
+<script type="text/javascript">
+$("#blog-loading div").animate({width:"45%"})
+</script>
+</div><!-- END content -->

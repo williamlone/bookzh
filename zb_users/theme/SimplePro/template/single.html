@@ -1,0 +1,40 @@
+﻿<#TEMPLATE_HEADER#>
+	<link rel="canonical" href="<#article/url#>"/>
+	<script src="<#ZC_BLOG_HOST#>zb_system/function/c_html_js_add.asp" type="text/javascript"></script>
+	<title><#BlogTitle#><#ZC_MSG044#><#article/firsttagintro#><#ZC_MSG044#><#ZC_BLOG_TITLE#></title>
+</head>
+<body class="single single-post postid-833 single-format-standard">
+	<div id="blog-loading"><div></div></div>
+<div id="wrap" class="container clearfix">
+	<div class="header_wrap">
+		<div id="header" class="clearfix">
+			<div id="logo">
+				<h2><#article/firsttagintro#><#ZC_BLOG_TITLE#></h2>
+			</div><!-- END logo --> 
+		</div><!-- END header -->
+		<label for="menu-toggle" class="navbar-toggle collapsed">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</label>
+		<div id="navigation" class="clearfix">
+		<input type="checkbox" id="menu-toggle" class="hidden"/>
+		<ul class="sf-menu navbar-nav">
+			<#CACHE_INCLUDE_NAVBAR#>
+		</ul>
+		</div><!-- END navigation -->
+	</div>
+	<script type="text/javascript">$("#blog-loading div").animate({width:"15%"})</script>
+	
+	<div id="main" class="container">
+		<#template:article-single#>
+		   
+		<div id="sidebar" class="sidebar alpha omega"> 
+			<script type="text/javascript">$("#blog-loading div").animate({width:"65%"})</script>
+			<#template:sidebar#>
+		</div><!-- END sidebar -->
+		<script type="text/javascript">$("#blog-loading div").animate({width:"80%"})</script>
+	</div><!-- END container -->
+</div><!-- END wrap --> 
+<script type="text/javascript">$("#blog-loading div").animate({width:"100%"})</script>
+<#TEMPLATE_FOOTER#>
