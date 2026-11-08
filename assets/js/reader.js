@@ -115,7 +115,7 @@
     });
   }
 
-  /* ---------------- 移动端目录抽屉 ---------------- */
+  /* ---------------- 目录抽屉（章节页） ---------------- */
 
   var toc = document.querySelector("[data-toc]");
   var toggle = document.querySelector("[data-toc-toggle]");
@@ -155,13 +155,19 @@
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") closeDrawer();
   });
-  if (window.matchMedia) {
-    var mq = window.matchMedia("(min-width: 901px)");
-    var onChange = function (event) {
-      if (event.matches) closeDrawer();
-    };
-    if (mq.addEventListener) mq.addEventListener("change", onChange);
-    else if (mq.addListener) mq.addListener(onChange);
+
+  // 点目录里的任一链接（章节或书名）后自动收起
+  if (toc) {
+    toc.addEventListener("click", function (event) {
+      var node = event.target;
+      while (node && node !== toc) {
+        if (node.tagName === "A") {
+          closeDrawer();
+          return;
+        }
+        node = node.parentNode;
+      }
+    });
   }
 
   /* ---------------- 阅读进度 ---------------- */

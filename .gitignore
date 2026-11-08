@@ -1,6 +1,7 @@
 # Hugo 构建产物，不纳入 Git 版本管理（可随时删除重建）
 public/
 docs/
+mdb/
 resources/_gen/
 .hugo_build.lock
 
