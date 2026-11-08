@@ -10,7 +10,34 @@
   --accent-2: #29506d;
   --soft: #f1ece3;
   --max: 1120px;
-  --reading: 38em;
+  --reading: 37em;
+}
+
+/* 夜间阅读：低对比度暖色，长时间阅读不刺眼 */
+html.night {
+  --bg: #171613;
+  --fg: #d6d0c2;
+  --muted: #9a9385;
+  --line: #34302a;
+  --card: #1f1d19;
+  --soft: #2a2721;
+  --accent: #d69a72;
+  --accent-2: #9dbfd4;
+}
+
+html.night .site-header {
+  background: rgba(23, 22, 19, 0.96);
+}
+
+html.night .piece-row a:hover,
+html.night .site-nav a:hover {
+  background: var(--soft);
+}
+
+html.night .book-card .cover,
+html.night .book-cover {
+  background: linear-gradient(150deg, #2b2722, #221f1a 55%, #1b1915);
+  color: #b9b1a1;
 }
 
 *,
@@ -421,26 +448,25 @@ main.container {
 
 /* ---------- 书籍详情页 ---------- */
 
-.book {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
-  grid-template-areas:
-    "head toc"
-    "intro toc";
-  gap: 0 2rem;
-  align-items: start;
+.book-page {
+  display: block;
 }
 
-.book-header {
-  grid-area: head;
+.book-hero-main {
+  min-width: 0;
+}
+
+.book-hero {
   display: grid;
   grid-template-columns: 150px minmax(0, 1fr);
-  gap: 1.3rem;
+  gap: 1.6rem;
   align-items: start;
+  padding: 0.2rem 0 1.4rem;
+  border-bottom: 1px solid var(--line);
 }
 
-/* 无封面：详情页头部不留封面列，文字占满整行 */
-.book-header.no-cover {
+/* 无封面：头部不留封面列，文字占满整行 */
+.book-hero.no-cover {
   grid-template-columns: minmax(0, 1fr);
 }
 
@@ -464,25 +490,56 @@ main.container {
   object-fit: cover;
 }
 
-.book-info h1 {
+.book-hero-main h1 {
   margin: 0 0 0.5rem;
   font-size: clamp(1.45rem, 1.2rem + 1.1vw, 1.9rem);
   line-height: 1.35;
   letter-spacing: 0.06em;
 }
 
+.book-count {
+  margin: 0.55rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
 .book-summary {
+  max-width: 56em;
   margin: 0.7rem 0 0;
   color: var(--muted);
   font-size: 0.94rem;
   line-height: 1.75;
 }
 
+/* 简介默认只显示 4 行，超出折叠；无 JS 时也能完整阅读 */
+.book-summary.is-collapsed {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  overflow: hidden;
+}
+
+.text-btn {
+  padding: 0.2rem 0;
+  border: 0;
+  background: none;
+  color: var(--accent-2);
+  font: inherit;
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+
+.text-btn:hover {
+  text-decoration: underline;
+}
+
 .book-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
-  margin: 1rem 0 0.4rem;
+  align-items: center;
+  gap: 0.5rem 1.1rem;
+  margin: 1rem 0 0;
 }
 
 .btn {
@@ -512,15 +569,12 @@ main.container {
 }
 
 .progress-note {
-  margin: 0.4rem 0 0;
-  padding: 0.5rem 0.7rem;
-  border-radius: 8px;
-  background: var(--soft);
-  font-size: 0.9rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
 }
 
 .book-intro {
-  grid-area: intro;
   margin-top: 1.2rem;
 }
 
@@ -533,15 +587,15 @@ main.container {
   display: none;
 }
 
-.book-toc {
-  grid-area: toc;
+/* 章节页侧栏目录：桌面固定，内部滚动 */
+.chapter-toc {
   position: sticky;
   top: 5rem;
   max-height: calc(100vh - 6rem);
   overflow: auto;
-  padding: 0.2rem 0 1rem;
+  padding: 0 0 1rem 1.1rem;
   border-left: 1px solid var(--line);
-  padding-left: 1.2rem;
+  font-size: 0.9rem;
 }
 
 .toc-head {
@@ -552,16 +606,90 @@ main.container {
 }
 
 .toc-head h2 {
-  margin: 0 0 0.6rem;
+  margin: 0 0 0.2rem;
   font-size: 1.02rem;
   letter-spacing: 0.08em;
 }
 
-.part-title {
-  margin: 1.1rem 0 0.35rem;
+.toc-book {
+  margin: 0 0 0.8rem;
   color: var(--muted);
-  font-size: 0.88rem;
+  font-size: 0.86rem;
+}
+
+/* 书籍页下半部：章节目录 */
+.book-chapters {
+  margin-top: 1.6rem;
+}
+
+.chapters-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.chapters-head h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+}
+
+.chapters-head .count {
+  margin-left: 0.5rem;
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 400;
+}
+
+.chapters-tools {
+  display: flex;
+  gap: 0.9rem;
+}
+
+/* 按卷分组：卷标题只出现一次，章节行不再带卷/部前缀 */
+.volume {
+  border-bottom: 1px solid var(--line);
+}
+
+.volume summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding: 0.75rem 0.2rem;
+  cursor: pointer;
+  list-style: none;
   font-weight: 600;
+}
+
+.volume summary::-webkit-details-marker {
+  display: none;
+}
+
+.volume-title::before {
+  content: "▸";
+  display: inline-block;
+  width: 1.1em;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.volume[open] .volume-title::before {
+  transform: rotate(90deg);
+}
+
+.volume-count {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.volume-flat {
+  border-bottom: 0;
 }
 
 .chapter-list {
@@ -572,6 +700,7 @@ main.container {
 
 .chapter-list li {
   margin: 0;
+  break-inside: avoid;
 }
 
 .chapter-list a {
@@ -594,11 +723,77 @@ main.container {
   font-weight: 600;
 }
 
+/* 书籍页：桌面两列；侧栏与移动端一列 */
+.book-chapters .chapter-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 0.9rem;
+  padding: 0.1rem 0.2rem 0.9rem;
+}
+
 .toc-overlay {
   display: none;
 }
 
 /* ---------- 阅读页 ---------- */
+
+.reading-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 250px;
+  gap: 2rem;
+  align-items: start;
+}
+
+.reading-main {
+  min-width: 0;
+}
+
+.chapter-crumb {
+  max-width: var(--reading);
+  margin: 0 auto 0.9rem;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.chapter-crumb a {
+  color: var(--muted);
+}
+
+.chapter-crumb .sep {
+  margin: 0 0.35rem;
+  color: #c9c1b3;
+}
+
+.reader-tools {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: var(--reading);
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0 auto 0.8rem;
+  font-size: 0.85rem;
+}
+
+.reader-tools button {
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--card);
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.reader-tools button:hover {
+  color: var(--fg);
+  border-color: #cdbfa9;
+}
+
+.reader-tools .tool-label {
+  color: var(--muted);
+}
 
 .reading {
   max-width: 48rem;
@@ -649,16 +844,31 @@ main.container {
 .reading-body {
   max-width: var(--reading);
   margin-inline: auto;
-  font-size: clamp(1.02rem, 0.96rem + 0.45vw, 1.2rem);
-  line-height: 1.8;
+  font-size: 18px;
+  line-height: 1.9;
   letter-spacing: 0.01em;
-  text-align: justify;
+  text-align: left;
   word-break: break-word;
   overflow-wrap: anywhere;
 }
 
+/* 中文排版：首行缩进 2em，段落之间不另留空行 */
 .reading-body p {
-  margin: 0 0 1.05em;
+  margin: 0;
+  text-indent: 2em;
+}
+
+.reading-body p + p {
+  margin-top: 0.15em;
+}
+
+/* 字号三档，只作用于正文 */
+html[data-font="s"] .reading-body {
+  font-size: 16.5px;
+}
+
+html[data-font="l"] .reading-body {
+  font-size: 19.5px;
 }
 
 .reading-body h2,
@@ -781,11 +991,11 @@ main.container {
 /* ---------- 响应式 ---------- */
 
 @media (max-width: 900px) {
-  .book {
+  .reading-layout {
     display: block;
   }
 
-  .book-toc {
+  .chapter-toc {
     position: fixed;
     top: 0;
     right: 0;
@@ -801,7 +1011,7 @@ main.container {
     visibility: hidden;
   }
 
-  .book-toc.is-open {
+  .chapter-toc.is-open {
     transform: none;
     visibility: visible;
   }
@@ -844,12 +1054,22 @@ main.container {
     width: min(var(--max), 100% - 1.6rem);
   }
 
-  .book-header {
+  .book-hero {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
   .book-cover {
-    max-width: 170px;
+    max-width: 150px;
+  }
+
+  .book-chapters .chapter-list {
+    grid-template-columns: 1fr;
+    padding-bottom: 0.7rem;
+  }
+
+  .reading-body {
+    font-size: 17px;
   }
 
   .reading-nav {
@@ -872,7 +1092,7 @@ main.container {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .book-toc {
+  .chapter-toc {
     transition: none;
   }
 }

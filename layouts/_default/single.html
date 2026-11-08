@@ -1,7 +1,40 @@
 {{ define "main" }}
-{{ partial "breadcrumbs.html" . }}
-
+{{ $isNovel := eq .Section "novel" }}
 {{ $position := partial "chapter-position.html" . }}
+{{ $volume := "" }}
+{{ if $isNovel }}{{ $volume = partial "chapter-volume.html" . }}{{ end }}
+{{ if $isNovel }}
+<button class="toc-toggle" type="button" data-toc-toggle aria-controls="chapter-toc" aria-expanded="false">目录</button>
+<div class="toc-overlay" data-toc-overlay hidden></div>
+<div class="reading-layout">
+  <aside class="chapter-toc" id="chapter-toc" data-toc aria-label="章节目录">
+    <div class="toc-head">
+      <h2>目录</h2>
+      <button class="toc-close" type="button" data-toc-close aria-label="关闭目录">关闭</button>
+    </div>
+    <p class="toc-book"><a href="{{ .Parent.RelPermalink }}">{{ .Parent.Title }}</a></p>
+    {{ partial "volume-toc.html" (dict "book" .Parent "current" .) }}
+  </aside>
+  <div class="reading-main">
+{{ else }}
+{{ partial "breadcrumbs.html" . }}
+{{ end }}
+
+{{ if $isNovel }}
+<nav class="chapter-crumb" aria-label="位置">
+  <a href="{{ .Parent.RelPermalink }}">{{ .Parent.Title }}</a>
+  {{ with $volume }}<span class="sep">/</span><a href="{{ $.Parent.RelPermalink }}#vol-{{ . | anchorize }}">{{ . }}</a>{{ end }}
+  <span class="sep">/</span><span aria-current="page">{{ .Title }}</span>
+</nav>
+{{ end }}
+
+<div class="reader-tools">
+  <span class="tool-label">字号</span>
+  <button type="button" data-font-smaller aria-label="减小字号">A−</button>
+  <button type="button" data-font-larger aria-label="增大字号">A+</button>
+  <button type="button" data-night-toggle aria-pressed="false">夜间</button>
+</div>
+
 <article class="reading" data-progress-key="{{ .Parent.RelPermalink }}" data-progress-title="{{ .Title }}">
   <header class="reading-header">
     <p class="kicker">{{ .Parent.Title }}{{ with $position }} · 第 {{ . }} 章{{ end }}</p>
@@ -15,4 +48,9 @@
 
   {{ partial "reading-nav.html" . }}
 </article>
+
+{{ if $isNovel }}
+  </div>
+</div>
+{{ end }}
 {{ end }}

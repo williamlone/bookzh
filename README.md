@@ -45,7 +45,7 @@ bookzh/
 │   └─ story/_index.md + story/<collection-slug>/_index.md、1.md、2.md…
 ├─ layouts/               模板（三节共用）
 ├─ assets/css/reader.css  唯一一份 CSS
-├─ assets/js/reader.js    唯一一份 JS（目录抽屉、阅读进度）
+├─ assets/js/reader.js    唯一一份 JS（目录抽屉与折叠、字号/夜间模式、阅读进度）
 ├─ static/images/covers/  书籍封面（不给章节配图）
 ├─ mdb/                   本地数据库目录（不提交，仅 sources.example.json 入库）
 ├─ scripts/import_zblog.py  从 Z-Blog Access 库导入内容
@@ -172,7 +172,7 @@ GitHub Pages 的限制：免费账号需要公开仓库；站点体积 ≤ 1 GB�
 
 ## 关于主题
 
-没有启用 `themes/hugo-book` 子模块。需求里的阅读页结构（38em 正文宽、`clamp()` 字号、移动端目录抽屉、三分区共用模板、无外部字体/图标、Book/Chapter JSON-LD）如果叠在 Hugo Book 上，需要大量覆盖它的模板和 CSS，维护成本反而更高。因此改用仓库内一套轻量自定义主题（`layouts/` + `assets/`），只有一份 CSS 和一份 JS，文件数可控，也方便将来整体复制给英文站。
+没有启用 `themes/hugo-book` 子模块。需求里的阅读页结构（37em 正文宽、18px 正文与三档字号、夜间模式、按卷折叠的目录、移动端目录抽屉、三分区共用模板、无外部字体/图标、Book/Chapter JSON-LD）如果叠在 Hugo Book 上，需要大量覆盖它的模板和 CSS，维护成本反而更高。因此改用仓库内一套轻量自定义主题（`layouts/` + `assets/`），只有一份 CSS 和一份 JS，文件数可控，也方便将来整体复制给英文站。
 
 ## SEO
 

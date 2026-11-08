@@ -1,0 +1,9 @@
+{{- /*
+  当前章节所属的卷标题：取 part 中 “·” 之前的部分。
+  书籍页目录给卷加了 #vol-<卷名> 锚点，章节页顶部导航用它跳回卷内目录。
+*/ -}}
+{{- $vol := .Params.part | default "" -}}
+{{- if strings.Contains $vol "·" -}}
+  {{- $vol = strings.TrimSpace (index (split $vol "·") 0) -}}
+{{- end -}}
+{{- return $vol -}}

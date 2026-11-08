@@ -1,0 +1,10 @@
+{{- /*
+  目录里显示的章节名：去掉标题里的卷/部/章前缀，只留“第N章 章名”。
+  N 用 weight（从 1 起），与文件名无关。
+*/ -}}
+{{- $name := .Title -}}
+{{- $name = replaceRE `^第[0-9零〇○一二三四五六七八九十百千万廿卅两]+(?:卷|部|章|回|节|篇|话|集|封信|信)\s*` "" $name -}}
+{{- $name = replaceRE `^(?:上|中|下)(?:卷|部|册)\s*` "" $name -}}
+{{- $label := printf "第%d章" .Weight -}}
+{{- with $name -}}{{- $label = printf "第%d章 %s" $.Weight . -}}{{- end -}}
+{{- return $label -}}
