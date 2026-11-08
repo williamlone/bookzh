@@ -47,7 +47,7 @@ bookzh/
 ├─ assets/css/reader.css  唯一一份 CSS
 ├─ assets/js/reader.js    唯一一份 JS（目录抽屉与折叠、字号/夜间模式、阅读进度）
 ├─ static/images/covers/  书籍封面（不给章节配图）
-├─ mdb/                   本地数据库目录（不提交，仅 sources.example.json 入库）
+├─ mdb/                   本地数据库目录（整个目录不提交，仓库里没有占位文件）
 ├─ scripts/import_zblog.py  从 Z-Blog Access 库导入内容
 ├─ scripts/genre_suggest.py 小说题材自动归类建议
 ├─ scripts/count_public.py  统计构建产物文件数
@@ -84,10 +84,14 @@ bookzh/
 
 库的具体文件名只写在本机的 `mdb/sources.json` 里，不进仓库；文档统一用「长篇小说库 / 短篇小说库 / 短篇故事库」指代。仓库文档只写相对路径，不要写本地绝对路径。
 
-**先准备配置**：复制占位示例，填入实际的库文件名（复制出来的 `sources.json` 已被 `.gitignore` 排除）。
+**先准备配置**：在 `mdb/` 下新建 `sources.json`（该目录已被 `.gitignore` 排除，不会进仓库），内容形如：
 
-```bash
-copy mdb\sources.example.json mdb\sources.json   # Windows；macOS/Linux 用 cp
+```json
+{
+  "novel": "<长篇小说库文件名>",
+  "fiction": "<短篇小说库文件名>",
+  "story": "<短篇故事库文件名>"
+}
 ```
 
 `sources.json` 需要三个键：`novel`、`fiction`、`story`，分别对应长篇小说库、短篇小说库、短篇故事库；值填库文件名（相对路径按 `mdb/` 或 `--db-dir` 指定的目录解析，也可写绝对路径）。配置缺失、某项为空、仍是 `<...>` 占位符或指向的文件不存在时，脚本会直接说明缺什么、放哪里、怎么补。配置文件路径可用 `--sources` 指定，默认是 `<db-dir>/sources.json`。

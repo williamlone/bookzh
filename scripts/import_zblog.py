@@ -8,7 +8,7 @@ import_zblog.py —— 把旧 Z-Blog Access 数据库增量导入成 Hugo 的三
     story   -> content/story/    短篇故事库（一个分类一个合集）
 
     三个库的具体文件名放在本地配置里（默认 <db-dir>/sources.json，不提交仓库）；
-    仓库只保留占位示例 mdb/sources.example.json。
+    仓库不含 mdb/ 下的任何文件，配置格式见 README「内容导入」一节。
     文档、示例、注释里统一用分区名指代，不写文件名。
 
 用法示例：
@@ -158,16 +158,16 @@ def load_sources(path, sections):
     """
     读取本地数据库配置（JSON），返回 {分区: 数据库绝对路径}。
 
-    配置文件不提交仓库：mdb/ 下只保留占位示例 sources.example.json，
-    实际文件名写进本机复制的 sources.json。缺文件、缺键、还是占位符、
-    库文件不存在时，都给出可直接照做的提示。
+    配置文件不提交仓库：整个 mdb/ 目录被 .gitignore 忽略，实际文件名只写在
+    本机的 sources.json 里。缺文件、缺键、还是占位符、库文件不存在时，
+    都给出可直接照做的提示。
     """
     shown = display_path(path)
     if not os.path.isfile(path):
         sys.exit(
             "找不到数据库配置文件：" + shown + "\n"
             "  位置：默认放在 mdb/ 下，也可以用 --sources 指定别的路径\n"
-            "  补法：复制 mdb/sources.example.json 为 mdb/sources.json，填入各库的实际文件名\n"
+            '  补法：在 mdb/ 下新建 sources.json（JSON 对象），填入各库的实际文件名\n'
             "  需要键：novel、fiction、story（分别对应长篇小说库、短篇小说库、短篇故事库）"
         )
 
@@ -177,15 +177,13 @@ def load_sources(path, sections):
     except json.JSONDecodeError as exc:
         sys.exit(
             "数据库配置文件不是合法 JSON：" + shown + "（第 " + str(exc.lineno) + " 行）\n"
-            '  期望内容：{"novel": "文件名", "fiction": "文件名", "story": "文件名"}\n'
-            "  参考 mdb/sources.example.json"
+            '  期望内容：{"novel": "文件名", "fiction": "文件名", "story": "文件名"}'
         )
 
     if not isinstance(data, dict):
         sys.exit(
             "数据库配置文件的内容应为 JSON 对象：" + shown + "\n"
-            "  需要键：novel、fiction、story，值填各库的文件名\n"
-            "  参考 mdb/sources.example.json"
+            "  需要键：novel、fiction、story，值填各库的文件名"
         )
 
     resolved = {}
@@ -213,7 +211,7 @@ def load_sources(path, sections):
         sys.exit(
             "数据库配置不可用：" + shown + "\n  - " + "\n  - ".join(problems) + "\n"
             "  需要键：novel、fiction、story（长篇小说库 / 短篇小说库 / 短篇故事库）\n"
-            "  补法：照 mdb/sources.example.json 补齐后再运行，或用 --sources 指向正确的配置文件"
+            "  补法：按上面提示补齐后重跑，或用 --sources 指向正确的配置文件"
         )
 
     return resolved

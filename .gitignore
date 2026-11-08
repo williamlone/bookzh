@@ -10,8 +10,5 @@ resources/_gen/
 .dryrun-log.txt
 
 # Z-Blog Access 原始数据库备份（Hugo 构建不读取）
-# mdb/ 内除占位示例配置外全部忽略
-mdb/*
-!mdb/sources.example.json
 *.mdb
 *.ldb
