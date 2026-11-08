@@ -1,0 +1,8 @@
+baseURL = 'https://bookzh.com/'
+locale = 'zh-CN'
+defaultContentLanguage = 'zh'
+title = '经典小说'
+hasCJKLanguage = true
+enableRobotsTXT = true
+uglyURLs = true
+disablePathToLower = true
