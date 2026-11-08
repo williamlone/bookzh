@@ -1,0 +1,8 @@
+{{- /* 题材筛选条：数据来自 data/novel_genres.yaml，新增题材只改数据。 */ -}}
+{{- $current := .current -}}
+<nav class="genre-bar" aria-label="题材分类">
+  {{- range hugo.Data.novel_genres -}}
+    <a class="genre-chip{{ if eq .key $current }} is-active{{ end }}"
+       href="{{ printf "/novel/genre/%s/" .key | relURL }}">{{ .name }}</a>
+  {{- end -}}
+</nav>

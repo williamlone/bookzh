@@ -1,0 +1,27 @@
+{{ define "main" }}
+{{ partial "breadcrumbs.html" . }}
+
+<section class="section-hero">
+  <h1>{{ .Title }}</h1>
+  {{ with .Content }}<p>{{ . | plainify }}</p>{{ end }}
+</section>
+
+{{ $pages := where site.RegularPages "Section" "story" }}
+{{ $pages = where $pages "Params.author" "!=" "" }}
+{{ $groups := $pages.GroupByParam "author" }}
+<p class="empty">共 {{ len $groups }} 位作者，按作者名排列。</p>
+
+<div class="author-groups">
+  {{ range $groups }}
+    <section class="author-group" id="{{ .Key | anchorize }}">
+      <h2>{{ .Key }}</h2>
+      <p class="card-count">{{ len .Pages }} 篇 · 合集：<a href="{{ (index .Pages 0).Parent.RelPermalink }}">{{ (index .Pages 0).Parent.Title }}</a></p>
+      <ul>
+        {{ range .Pages.ByTitle }}
+          <li><a href="{{ .RelPermalink }}">{{ .Title }}</a> <span class="card-count">· {{ .Parent.Title }}</span></li>
+        {{ end }}
+      </ul>
+    </section>
+  {{ end }}
+</div>
+{{ end }}

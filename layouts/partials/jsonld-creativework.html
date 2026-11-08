@@ -1,0 +1,7 @@
+{{ $data := dict "@context" "https://schema.org" "@type" "Article" "headline" .Title "url" .Permalink "inLanguage" "zh-CN" }}
+{{ $author := .Params.author }}
+{{ if not $author }}{{ with .Parent.Params.author }}{{ $author = . }}{{ end }}{{ end }}
+{{ with $author }}{{ $data = merge $data (dict "author" (dict "@type" "Person" "name" .)) }}{{ end }}
+{{ with .Params.summary }}{{ $data = merge $data (dict "description" .) }}{{ end }}
+{{ with .Parent }}{{ $data = merge $data (dict "isPartOf" (dict "@type" "CreativeWork" "name" .Title "url" .Permalink)) }}{{ end }}
+<script type="application/ld+json">{{ $data | jsonify | safeJS }}</script>

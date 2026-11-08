@@ -1,0 +1,21 @@
+# 三个内容分区的配置：首页入口、导航、阅读页文案都从这里取
+novel:
+  title: 长篇小说
+  intro: 一本书多章，按书阅读；支持章节目录与上一章/下一章。
+  unit: 章
+  back: 本书目录
+  collection: 本
+
+fiction:
+  title: 短篇小说
+  intro: 单篇成篇的文学作品，按作者归类。
+  unit: 篇
+  back: 作者目录
+  collection: 位作者
+
+story:
+  title: 短篇故事
+  intro: 按题材合集归类的通俗故事。
+  unit: 篇
+  back: 合集目录
+  collection: 个合集

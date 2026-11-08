@@ -1,0 +1,15 @@
+{{- /*
+  章节序号：只统计标题里带“第…章”的页面，按 weight 顺序数出来。
+  分卷（上卷/前言等）不参与计数，返回 0 表示“不是编了号的章节”。
+  文件名只是 1.md、2.md…，序号完全由 weight 决定。
+*/ -}}
+{{ $position := 0 }}
+{{ if and (eq .Section "novel") (findRE `^第[0-9零〇○一二三四五六七八九十百千]+章` .Title 1) }}
+  {{ $count := 0 }}
+  {{ $self := .RelPermalink }}
+  {{ range .Parent.RegularPages.ByWeight }}
+    {{ if findRE `^第[0-9零〇○一二三四五六七八九十百千]+章` .Title 1 }}{{ $count = add $count 1 }}{{ end }}
+    {{ if eq .RelPermalink $self }}{{ $position = $count }}{{ break }}{{ end }}
+  {{ end }}
+{{ end }}
+{{ return $position }}

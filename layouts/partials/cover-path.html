@@ -1,0 +1,8 @@
+{{- /* 返回可用的封面路径（相对 static/）；没填 cover 或图片不存在时返回空字符串，
+       调用方据此整块不渲染图片区域，不显示占位。 */ -}}
+{{- $path := "" -}}
+{{- with .Params.cover -}}
+  {{- $p := strings.TrimPrefix "/" . -}}
+  {{- if os.FileExists (printf "static/%s" $p) -}}{{- $path = $p -}}{{- end -}}
+{{- end -}}
+{{- return $path -}}

@@ -1,0 +1,17 @@
+{{ $section := .Section }}
+{{ $cover := partial "cover-path.html" . }}
+<a class="book-card{{ if not $cover }} no-cover{{ end }}" href="{{ .RelPermalink }}">
+  {{ with $cover }}
+    <div class="cover" aria-hidden="true"><img src="{{ . | relURL }}" alt=""></div>
+  {{ end }}
+  <div class="card-body">
+    <h2>{{ .Title }}</h2>
+    {{ if eq $section "novel" }}
+      {{ with .Params.author }}<p class="card-author">{{ . }}</p>{{ end }}
+      <p class="card-count">共 {{ len .RegularPages }} 章</p>
+    {{ else }}
+      <p class="card-count">共 {{ len .RegularPages }} 篇</p>
+    {{ end }}
+    {{ with .Params.summary }}<p class="card-summary">{{ . | truncate 80 }}</p>{{ end }}
+  </div>
+</a>

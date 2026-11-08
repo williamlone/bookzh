@@ -1,0 +1,878 @@
+/* 经典小说 —— 轻量阅读主题样式（单文件，无外部字体/图标） */
+
+:root {
+  --bg: #fbfaf7;
+  --fg: #22201d;
+  --muted: #6b655d;
+  --line: #e2ddd3;
+  --card: #ffffff;
+  --accent: #8b4a2f;
+  --accent-2: #29506d;
+  --soft: #f1ece3;
+  --max: 1120px;
+  --reading: 38em;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 4.5rem;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "SimSun",
+    Georgia, "Times New Roman", serif;
+  font-size: 17px;
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--accent-2);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.container {
+  width: min(var(--max), 100% - 2.2rem);
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  padding: 0.6rem 1rem;
+  background: var(--card);
+  z-index: 60;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+/* ---------- 页头 / 导航 ---------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(251, 250, 247, 0.96);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(6px);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  padding: 0.6rem 0;
+}
+
+.brand {
+  color: var(--fg);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-left: auto;
+}
+
+.site-nav a {
+  padding: 0.42rem 0.68rem;
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.site-nav a:hover {
+  background: var(--soft);
+  text-decoration: none;
+}
+
+.site-nav a.active {
+  background: var(--soft);
+  color: var(--fg);
+  font-weight: 600;
+}
+
+main.container {
+  padding: 1.6rem 0 3rem;
+}
+
+/* ---------- 面包屑 ---------- */
+
+.breadcrumbs {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.breadcrumbs li + li::before {
+  content: "/";
+  margin-right: 0.45rem;
+  color: #c9c1b3;
+}
+
+/* ---------- 分区说明正文 ---------- */
+
+.section-intro.markdown {
+  max-width: 44em;
+  margin: 0 0 1.6rem;
+  color: var(--fg);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.section-intro.markdown h3 {
+  margin: 1.2em 0 0.4em;
+  font-size: 1.05rem;
+}
+
+.section-intro.markdown p {
+  margin: 0 0 0.9em;
+}
+
+/* ---------- 首页 ---------- */
+
+.home-hero {
+  padding: 1.2rem 0 0.6rem;
+}
+
+.home-hero h1 {
+  margin: 0 0 0.4rem;
+  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.1rem);
+  letter-spacing: 0.08em;
+}
+
+.home-hero p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.section-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin: 1.4rem 0 2.4rem;
+}
+
+.section-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--fg);
+}
+
+.section-card:hover {
+  border-color: #cdbfa9;
+  text-decoration: none;
+}
+
+.section-kicker {
+  font-size: 1.18rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.section-intro {
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+.section-count {
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+.section-arrow {
+  margin-top: auto;
+  padding-top: 0.4rem;
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+.home-featured {
+  margin-top: 1rem;
+}
+
+.home-featured h2 {
+  margin: 0 0 0.9rem;
+  font-size: 1.2rem;
+  letter-spacing: 0.06em;
+}
+
+/* ---------- 分区 / 列表页 ---------- */
+
+.section-hero {
+  padding: 0.4rem 0 1.2rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 1.4rem;
+}
+
+.section-hero h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.4rem, 1.15rem + 1.2vw, 1.9rem);
+  letter-spacing: 0.08em;
+}
+
+.section-hero p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.hero-links {
+  margin-top: 0.7rem !important;
+  font-size: 0.95rem;
+}
+
+/* 题材筛选条（/novel/ 顶部与题材页） */
+.genre-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 1.6rem;
+}
+
+.genre-chip {
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.genre-chip:hover {
+  border-color: #cdbfa9;
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.genre-chip.is-active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+.genre-link {
+  color: var(--accent-2);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 1rem;
+}
+
+.book-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--fg);
+  overflow: hidden;
+}
+
+.book-card:hover {
+  border-color: #cdbfa9;
+  text-decoration: none;
+}
+
+.book-card .cover {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 2 / 3;
+  padding: 1.1rem;
+  background: linear-gradient(150deg, #e9e1d3, #d8cbb7 55%, #c8b79d);
+  color: #3b3229;
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-align: center;
+  line-height: 1.45;
+}
+
+.book-card .cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.8rem 0.9rem 0.95rem;
+}
+
+/* 无封面：不渲染图片区域，文字区块撑满卡片，同行卡片高度仍然对齐 */
+.book-card.no-cover .card-body {
+  flex: 1;
+  padding: 1.05rem 1rem 1.1rem;
+}
+
+.book-card.no-cover .card-body h2 {
+  font-size: 1.1rem;
+}
+
+.card-body h2 {
+  margin: 0;
+  font-size: 1.04rem;
+  line-height: 1.45;
+}
+
+.card-author {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.card-region,
+.card-count {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.card-summary {
+  margin: 0.15rem 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.piece-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+.piece-row {
+  border-bottom: 1px solid var(--line);
+}
+
+.piece-row a {
+  display: block;
+  padding: 1rem 0.2rem;
+  color: var(--fg);
+}
+
+.piece-row a:hover {
+  background: #f6f2ea;
+  text-decoration: none;
+}
+
+.piece-row h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.piece-row p {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.empty {
+  color: var(--muted);
+}
+
+/* ---------- 书籍详情页 ---------- */
+
+.book {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  grid-template-areas:
+    "head toc"
+    "intro toc";
+  gap: 0 2rem;
+  align-items: start;
+}
+
+.book-header {
+  grid-area: head;
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 1.3rem;
+  align-items: start;
+}
+
+/* 无封面：详情页头部不留封面列，文字占满整行 */
+.book-header.no-cover {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.book-cover {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 2 / 3;
+  padding: 0.8rem;
+  border-radius: 8px;
+  background: linear-gradient(150deg, #e9e1d3, #d8cbb7 55%, #c8b79d);
+  color: #3b3229;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.4;
+  overflow: hidden;
+}
+
+.book-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.book-info h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.45rem, 1.2rem + 1.1vw, 1.9rem);
+  line-height: 1.35;
+  letter-spacing: 0.06em;
+}
+
+.book-summary {
+  margin: 0.7rem 0 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.75;
+}
+
+.book-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1rem 0 0.4rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.55rem 1.05rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--fg);
+  font: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.btn.primary {
+  border-color: transparent;
+  background: var(--accent-2);
+  color: #fff;
+}
+
+.btn.primary:hover {
+  background: #1f4057;
+  text-decoration: none;
+}
+
+.progress-note {
+  margin: 0.4rem 0 0;
+  padding: 0.5rem 0.7rem;
+  border-radius: 8px;
+  background: var(--soft);
+  font-size: 0.9rem;
+}
+
+.book-intro {
+  grid-area: intro;
+  margin-top: 1.2rem;
+}
+
+.book-intro.markdown {
+  max-width: 42em;
+}
+
+.toc-toggle,
+.toc-close {
+  display: none;
+}
+
+.book-toc {
+  grid-area: toc;
+  position: sticky;
+  top: 5rem;
+  max-height: calc(100vh - 6rem);
+  overflow: auto;
+  padding: 0.2rem 0 1rem;
+  border-left: 1px solid var(--line);
+  padding-left: 1.2rem;
+}
+
+.toc-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.toc-head h2 {
+  margin: 0 0 0.6rem;
+  font-size: 1.02rem;
+  letter-spacing: 0.08em;
+}
+
+.part-title {
+  margin: 1.1rem 0 0.35rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.chapter-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chapter-list li {
+  margin: 0;
+}
+
+.chapter-list a {
+  display: block;
+  padding: 0.28rem 0.35rem;
+  border-radius: 4px;
+  color: var(--fg);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.chapter-list a:hover {
+  background: var(--soft);
+  text-decoration: none;
+}
+
+.chapter-list a.current {
+  background: var(--soft);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.toc-overlay {
+  display: none;
+}
+
+/* ---------- 阅读页 ---------- */
+
+.reading {
+  max-width: 48rem;
+  margin-inline: auto;
+}
+
+.reading-header {
+  max-width: var(--reading);
+  margin: 0 auto 1.4rem;
+}
+
+.kicker {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  letter-spacing: 0.08em;
+}
+
+.reading-header h1 {
+  margin: 0.25rem 0 0.7rem;
+  font-size: clamp(1.35rem, 1.1rem + 1.2vw, 1.85rem);
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.2rem 0.9rem;
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.meta dt {
+  font-weight: 600;
+}
+
+.meta dd {
+  margin: 0;
+}
+
+.meta-note {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.reading-body {
+  max-width: var(--reading);
+  margin-inline: auto;
+  font-size: clamp(1.02rem, 0.96rem + 0.45vw, 1.2rem);
+  line-height: 1.8;
+  letter-spacing: 0.01em;
+  text-align: justify;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.reading-body p {
+  margin: 0 0 1.05em;
+}
+
+.reading-body h2,
+.reading-body h3 {
+  margin: 1.6em 0 0.6em;
+  line-height: 1.45;
+}
+
+.reading-body ul,
+.reading-body ol {
+  padding-left: 1.4em;
+}
+
+.reading-body blockquote {
+  margin: 1.2em 0;
+  padding: 0.4em 1em;
+  border-left: 3px solid var(--line);
+  color: var(--muted);
+}
+
+.reading-body pre {
+  overflow-x: auto;
+  padding: 0.8rem;
+  background: var(--soft);
+  border-radius: 6px;
+}
+
+.markdown a {
+  text-decoration: underline;
+}
+
+/* ---------- 上一章 / 下一章 ---------- */
+
+.reading-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  max-width: 48rem;
+  margin: 2.4rem auto 1rem;
+}
+
+.nav-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.22rem;
+  min-height: 3.5rem;
+  padding: 0.9rem 1.05rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--fg);
+}
+
+.nav-btn:hover {
+  border-color: #cdbfa9;
+  text-decoration: none;
+}
+
+.nav-btn.next {
+  text-align: right;
+}
+
+.nav-btn.disabled {
+  color: var(--muted);
+  opacity: 0.62;
+}
+
+.nav-label {
+  color: var(--muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+}
+
+.nav-title {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.back-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.2rem;
+  margin: 1.2rem 0 0;
+  font-size: 0.95rem;
+}
+
+/* ---------- 页脚 ---------- */
+
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 1.3rem 0 2rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.footer-inner p {
+  margin: 0.2rem 0;
+}
+
+/* ---------- 作者索引 ---------- */
+
+.author-groups {
+  display: grid;
+  gap: 1.6rem;
+}
+
+.author-group h2 {
+  margin: 0 0 0.3rem;
+  font-size: 1.1rem;
+}
+
+.author-group ul {
+  margin: 0.4rem 0 0;
+  padding-left: 1.2em;
+  line-height: 1.8;
+}
+
+/* ---------- 响应式 ---------- */
+
+@media (max-width: 900px) {
+  .book {
+    display: block;
+  }
+
+  .book-toc {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 45;
+    width: min(22rem, 88vw);
+    max-height: none;
+    padding: 1rem 1rem 2rem;
+    border-left: 1px solid var(--line);
+    background: var(--bg);
+    transform: translateX(100%);
+    transition: transform 0.22s ease;
+    visibility: hidden;
+  }
+
+  .book-toc.is-open {
+    transform: none;
+    visibility: visible;
+  }
+
+  .toc-toggle,
+  .toc-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.9rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--card);
+    color: var(--fg);
+    font: inherit;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+
+  .toc-overlay.is-open {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgba(0, 0, 0, 0.42);
+  }
+
+  body.drawer-open {
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 16px;
+  }
+
+  .container {
+    width: min(var(--max), 100% - 1.6rem);
+  }
+
+  .book-header {
+    grid-template-columns: 1fr;
+  }
+
+  .book-cover {
+    max-width: 170px;
+  }
+
+  .reading-nav {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .nav-btn {
+    min-height: 3.9rem;
+    padding: 0.95rem 1.05rem;
+  }
+
+  .nav-btn.next {
+    text-align: left;
+  }
+
+  .section-hero {
+    padding-bottom: 0.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .book-toc {
+    transition: none;
+  }
+}

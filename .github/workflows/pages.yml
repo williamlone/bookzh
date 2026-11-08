@@ -1,0 +1,69 @@
+name: Deploy Hugo site to GitHub Pages
+
+# 触发：推送到 main 分支，或在 Actions 页面手动运行
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# GitHub Pages 官方部署所需权限
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同一时间只跑一个部署，避免并发覆盖
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  # 固定 Hugo 版本：本地与 CI 保持一致
+  HUGO_VERSION: 0.165.0
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Install Hugo (extended)
+        run: |
+          wget -q -O hugo.deb \
+            "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
+          sudo dpkg -i hugo.deb
+          hugo version
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Build site
+        # baseURL 由 Pages 提供：项目站点是 https://<user>.github.io/<repo>/，
+        # 自定义域名时自动变成 https://bookzh.com/。模板里都用 relURL / RelPermalink，
+        # 所以子路径部署不会断链。
+        run: |
+          hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
+
+      - name: Check file budget (20,000 limit)
+        run: python3 scripts/count_public.py
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

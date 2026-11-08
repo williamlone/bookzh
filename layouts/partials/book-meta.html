@@ -1,0 +1,14 @@
+{{ $genre := .Params.genre }}
+{{ if or .Params.author .Params.year $genre }}
+<dl class="meta">
+  {{ with .Params.author }}<dt>作者</dt><dd>{{ . }}</dd>{{ end }}
+  {{ with .Params.year }}<dt>年份</dt><dd>{{ . }}</dd>{{ end }}
+  {{ with $genre }}
+    {{ $key := . }}
+    {{ $label := $key }}
+    {{ range hugo.Data.novel_genres }}{{ if eq .key $key }}{{ $label = .name }}{{ end }}{{ end }}
+    <dt>题材</dt>
+    <dd><a class="genre-link" href="{{ printf "/novel/genre/%s/" $key | relURL }}">{{ $label }}</a></dd>
+  {{ end }}
+</dl>
+{{ end }}

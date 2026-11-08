@@ -1,0 +1,2 @@
+{{ $data := dict "@context" "https://schema.org" "@type" "Website" "name" site.Title "url" site.Home.Permalink "description" site.Params.description "inLanguage" "zh-CN" }}
+<script type="application/ld+json">{{ $data | jsonify | safeJS }}</script>

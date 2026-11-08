@@ -1,0 +1,8 @@
+{{ $book := .Parent }}
+{{ $position := partial "chapter-position.html" . }}
+{{ if eq $position 0 }}{{ $position = .Weight }}{{ end }}
+{{ $data := dict "@context" "https://schema.org" "@type" "Chapter" "name" .Title "url" .Permalink "inLanguage" "zh-CN" "position" $position }}
+{{ $data = merge $data (dict "isPartOf" (dict "@type" "Book" "name" $book.Title "url" $book.Permalink)) }}
+{{ with $book.Params.author }}{{ $data = merge $data (dict "author" (dict "@type" "Person" "name" .)) }}{{ end }}
+{{ with .Params.summary }}{{ $data = merge $data (dict "description" .) }}{{ end }}
+<script type="application/ld+json">{{ $data | jsonify | safeJS }}</script>

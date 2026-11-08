@@ -1,0 +1,40 @@
+{{ define "main" }}
+{{ partial "breadcrumbs.html" . }}
+
+<section class="section-hero">
+  <h1>{{ .Title }}</h1>
+  {{ $intro := "" }}
+  {{ with .Params.summary }}{{ $intro = . }}{{ end }}
+  {{ if not $intro }}{{ with index hugo.Data.sections .Section }}{{ $intro = .intro }}{{ end }}{{ end }}
+  {{ with $intro }}<p>{{ . }}</p>{{ end }}
+  {{ if and (eq .Section "story") .Parent.IsHome }}
+    {{ with site.GetPage "/story/author-index" }}
+      <p class="hero-links"><a href="{{ .RelPermalink }}">按作者浏览 →</a></p>
+    {{ end }}
+  {{ end }}
+  {{ if and (eq .Section "novel") .Parent.IsHome }}
+    {{ $count := 0 }}
+    {{ range .Sections }}{{ if ne .Layout "genre" }}{{ $count = add $count 1 }}{{ end }}{{ end }}
+    <p class="hero-links">按题材浏览：共 {{ $count }} 本</p>
+  {{ end }}
+</section>
+
+{{ if and (eq .Section "novel") .Parent.IsHome }}
+  {{ partial "genre-nav.html" (dict "current" "") }}
+{{ end }}
+
+{{ with .Content }}<div class="section-intro markdown">{{ . }}</div>{{ end }}
+
+{{ if .Sections }}
+  <div class="card-grid">
+    {{/* layout=genre 的是 /novel/genre/ 这个题材容器页，不作为书籍卡片展示 */}}
+    {{ range .Sections.ByWeight }}{{ if ne .Layout "genre" }}{{ partial "collection-card.html" . }}{{ end }}{{ end }}
+  </div>
+{{ else if .RegularPages }}
+  <div class="piece-list">
+    {{ range .RegularPages.ByWeight }}{{ partial "piece-row.html" . }}{{ end }}
+  </div>
+{{ else }}
+  <p class="empty">暂无内容。</p>
+{{ end }}
+{{ end }}

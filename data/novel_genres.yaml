@@ -1,0 +1,20 @@
+# 长篇小说题材定义（顺序即页面/筛选条的展示顺序）
+# 题材页由导入脚本按这份数据生成 content/novel/genre/<key>/_index.md
+- key: jingdian
+  name: 经典小说
+  intro: 现实主义与社会写实的经典长篇，人物与时代是阅读重点。
+- key: aiqing
+  name: 爱情小说
+  intro: 以婚恋、情感纠葛与情感选择为主线的长篇。
+- key: maoxian
+  name: 冒险小说
+  intro: 航海、远行、寻宝与探险驱动的长篇。
+- key: xuanyi
+  name: 悬疑小说
+  intro: 案件、罪案、哥特谜团与心理暗线为主线的长篇。
+- key: qihuan
+  name: 奇幻小说
+  intro: 魔法、怪物、寓言与幻想世界为主线的长篇。
+- key: lishi
+  name: 历史小说
+  intro: 以真实历史事件或时代为背景的长篇。

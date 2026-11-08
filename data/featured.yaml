@@ -1,0 +1,9 @@
+# 首页推荐书单：section 是分区目录名，slug 是 content/novel/<slug>/
+- section: novel
+  slug: tangjihede
+- section: novel
+  slug: zhanzhengyuheping
+- section: novel
+  slug: annakalieningna
+- section: novel
+  slug: baijing

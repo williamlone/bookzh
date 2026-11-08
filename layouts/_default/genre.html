@@ -1,0 +1,45 @@
+{{ define "main" }}
+{{ partial "breadcrumbs.html" . }}
+
+{{ $key := .Params.genre_key }}
+{{ $novel := site.GetPage "/novel" }}
+
+{{ if $key }}
+  {{/* 单个题材页：按 genre 过滤本分区书籍 */}}
+  {{ $books := where $novel.Sections "Params.genre" $key }}
+  <section class="section-hero">
+    <h1>{{ .Title }}</h1>
+    {{ with .Params.summary }}<p>{{ . }}</p>{{ end }}
+    <p class="hero-links">共 {{ len $books }} 本 · <a href="{{ "/novel/" | relURL }}">全部书籍</a></p>
+  </section>
+
+  {{ partial "genre-nav.html" (dict "current" $key) }}
+
+  {{ if $books }}
+    <div class="card-grid">
+      {{ range $books.ByWeight }}{{ partial "collection-card.html" . }}{{ end }}
+    </div>
+  {{ else }}
+    <p class="empty">这个题材下暂时没有书。</p>
+  {{ end }}
+{{ else }}
+  {{/* 题材总览页 /novel/genre/：六个入口 */}}
+  <section class="section-hero">
+    <h1>{{ .Title }}</h1>
+    {{ with .Params.summary }}<p>{{ . }}</p>{{ end }}
+    <p class="hero-links"><a href="{{ "/novel/" | relURL }}">全部书籍</a></p>
+  </section>
+
+  <div class="card-grid">
+    {{ range hugo.Data.novel_genres }}
+      <a class="book-card no-cover" href="{{ printf "/novel/genre/%s/" .key | relURL }}">
+        <div class="card-body">
+          <h2>{{ .name }}</h2>
+          <p class="card-count">共 {{ len (where $novel.Sections "Params.genre" .key) }} 本</p>
+          <p class="card-summary">{{ .intro }}</p>
+        </div>
+      </a>
+    {{ end }}
+  </div>
+{{ end }}
+{{ end }}

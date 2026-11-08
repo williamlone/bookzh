@@ -1,0 +1,10 @@
+{{ $author := .Params.author }}
+<article class="piece-row">
+  <a href="{{ .RelPermalink }}">
+    <h2>{{ .Title }}</h2>
+    {{ if and $author (ne $author .Parent.Params.author) }}
+      <p class="card-author">{{ $author }}</p>
+    {{ end }}
+    {{ with .Params.summary }}<p>{{ . }}</p>{{ end }}
+  </a>
+</article>

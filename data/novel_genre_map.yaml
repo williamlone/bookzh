@@ -1,0 +1,141 @@
+# 长篇小说题材映射：一本书恰好一个题材（唯一权威来源）
+# genre 取值：jingdian（经典） / aiqing（爱情） / maoxian（冒险） /
+#             xuanyi（悬疑） / qihuan（奇幻） / lishi（历史）
+# pending: true 表示归类把握不大，需要人工确认；不影响导入
+#
+# 改完这张表直接重跑 `python scripts/import_zblog.py --db novel` 即可，
+# 导入脚本会把 genre 写进每本书的 _index.md。
+
+# ---------- 爱情小说 ----------
+- {title: 傲慢与偏见, genre: aiqing}
+- {title: 爱玛, genre: aiqing}
+- {title: 理智与情感, genre: aiqing}
+- {title: 劝导, genre: aiqing}
+- {title: 曼斯菲尔德庄园, genre: aiqing}
+- {title: 简爱, genre: aiqing}
+- {title: 呼啸山庄, genre: aiqing}
+- {title: 安娜卡列宁娜, genre: aiqing}
+- {title: 包法利夫人, genre: aiqing}
+- {title: 茶花女, genre: aiqing}
+- {title: 克莱芙王妃, genre: aiqing}
+- {title: 危险的关系, genre: aiqing}
+- {title: 少年维特的烦恼, genre: aiqing}
+- {title: 恋爱中的女人, genre: aiqing}
+- {title: 儿子与情人, genre: aiqing}
+- {title: 面纱, genre: aiqing}
+- {title: 看得见风景的房间, genre: aiqing}
+- {title: 纯真年代, genre: aiqing}
+- {title: 苔丝, genre: aiqing}
+- {title: 雪国, genre: aiqing}
+- {title: 鸽翼, genre: aiqing}
+- {title: 他们眼望上苍, genre: aiqing}
+
+# ---------- 冒险小说 ----------
+- {title: 堂吉诃德, genre: maoxian}
+- {title: 鲁滨逊漂流记, genre: maoxian}
+- {title: 格列佛游记, genre: maoxian}
+- {title: 金银岛, genre: maoxian}
+- {title: 哈克贝利费恩历险记, genre: maoxian}
+- {title: 汤姆索亚历险记, genre: maoxian}
+- {title: 白鲸, genre: maoxian}
+- {title: 三个火枪手, genre: maoxian}
+- {title: 基督山伯爵, genre: maoxian}
+- {title: 匹克威克外传, genre: maoxian}
+- {title: 弃儿汤姆琼斯史, genre: maoxian}
+- {title: 老实人, genre: maoxian}
+- {title: 当代英雄, genre: maoxian}
+- {title: 最后的莫希干人, genre: maoxian}
+- {title: 吉姆爷, genre: maoxian}
+- {title: 诺斯特罗莫, genre: maoxian}
+- {title: 黑暗的心, genre: maoxian}
+- {title: 在路上, genre: maoxian}
+
+# ---------- 悬疑小说 ----------
+- {title: 白衣女人, genre: xuanyi}
+- {title: 蝴蝶梦, genre: xuanyi}
+- {title: 荒凉山庄, genre: xuanyi}
+- {title: 间谍, genre: xuanyi}
+- {title: 审判, genre: xuanyi}
+
+# ---------- 奇幻小说 ----------
+- {title: 弗兰肯斯坦, genre: qihuan}
+- {title: 德古拉, genre: qihuan}
+- {title: 百年孤独, genre: qihuan}
+
+# ---------- 历史小说 ----------
+- {title: 战争与和平, genre: lishi}
+- {title: 双城记, genre: lishi}
+- {title: 巴黎圣母院, genre: lishi}
+- {title: 约婚夫妇, genre: lishi}
+- {title: 源氏物语, genre: lishi}
+- {title: 飘, genre: lishi}
+- {title: 日瓦戈医生, genre: lishi}
+- {title: 好兵帅克, genre: lishi}
+- {title: 西线无战事, genre: lishi}
+- {title: 永别了，武器, genre: lishi}
+- {title: 丧钟为谁而鸣, genre: lishi}
+- {title: 红色英勇勋章, genre: lishi}
+- {title: 彼得堡, genre: lishi}
+- {title: 帕尔马修道院, genre: lishi}
+- {title: 押沙龙，押沙龙, genre: lishi}
+- {title: 铁皮鼓, genre: lishi}
+
+# ---------- 经典小说 ----------
+- {title: 一位女士的画像, genre: jingdian}
+- {title: 了不起的盖茨比, genre: jingdian}
+- {title: 人生的枷锁, genre: jingdian}
+- {title: 伪币制造者, genre: jingdian}
+- {title: 使节, genre: jingdian}
+- {title: 刀锋, genre: jingdian}
+- {title: 到灯塔去, genre: jingdian}
+- {title: 卡拉马佐夫兄弟, genre: jingdian}
+- {title: 印度之行, genre: jingdian}
+- {title: 名利场, genre: jingdian}
+- {title: 喧哗与骚动, genre: jingdian}
+- {title: 大卫科波菲尔, genre: jingdian}
+- {title: 太阳照常升起, genre: jingdian}
+- {title: 奥勃洛莫夫, genre: jingdian}
+- {title: 小妇人, genre: jingdian}
+- {title: 尤利西斯, genre: jingdian}
+- {title: 局外人, genre: jingdian}
+- {title: 布登勃洛克一家, genre: jingdian}
+- {title: 悲惨世界, genre: jingdian}
+- {title: 愤怒的葡萄, genre: jingdian}
+- {title: 我弥留之际, genre: jingdian}
+- {title: 我的安东妮亚, genre: jingdian}
+- {title: 月亮与六便士, genre: jingdian}
+- {title: 柏林亚历山大广场, genre: jingdian}
+- {title: 梦游者, genre: jingdian}
+- {title: 死魂灵, genre: jingdian}
+- {title: 汤姆叔叔的小屋, genre: jingdian}
+- {title: 没有个性的人, genre: jingdian}
+- {title: 洛丽塔, genre: jingdian}
+- {title: 父与子, genre: jingdian}
+- {title: 瓦解, genre: jingdian}
+- {title: 白痴, genre: jingdian}
+- {title: 看不见的人, genre: jingdian}
+- {title: 米德尔马契, genre: jingdian}
+- {title: 红与黑, genre: jingdian}
+- {title: 红字, genre: jingdian}
+- {title: 约翰克利斯朵夫, genre: jingdian}
+- {title: 美国的悲剧, genre: jingdian}
+- {title: 萌芽, genre: jingdian}
+- {title: 觉醒, genre: jingdian}
+- {title: 达洛卫夫人, genre: jingdian}
+- {title: 远大前程, genre: jingdian}
+- {title: 追忆似水年华, genre: jingdian}
+- {title: 金钵记, genre: jingdian}
+- {title: 雾都孤儿, genre: jingdian}
+- {title: 霍华德庄园, genre: jingdian}
+- {title: 青年艺术家画像, genre: jingdian}
+- {title: 项狄传, genre: jingdian}
+- {title: 高老头, genre: jingdian}
+- {title: 魔山, genre: jingdian}
+- {title: 麦田里的守望者, genre: jingdian}
+
+# ---------- 已确认归入经典小说 ----------
+- {title: 浮生梦, genre: jingdian}
+- {title: 罪与罚, genre: jingdian}
+- {title: 动物庄园, genre: jingdian}
+- {title: 一九八四, genre: jingdian}
+- {title: 美丽新世界, genre: jingdian}

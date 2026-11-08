@@ -1,0 +1,21 @@
+{{ $pages := .RegularPages.ByWeight }}
+{{ if $pages }}
+  {{ $current := "" }}
+  {{ $open := false }}
+  {{ range $pages }}
+    {{ $part := .Params.part | default "" }}
+    {{ if ne $part $current }}
+      {{ if $open }}</ol>{{ end }}
+      {{ $current = $part }}
+      {{ if $part }}<h3 class="part-title">{{ $part }}</h3>{{ end }}
+      <ol class="chapter-list">
+      {{ $open = true }}
+    {{ end }}
+    <li>
+      <a href="{{ .RelPermalink }}" data-chapter-link data-weight="{{ .Weight }}">{{ .Title }}</a>
+    </li>
+  {{ end }}
+  {{ if $open }}</ol>{{ end }}
+{{ else }}
+  <p class="empty">暂无章节。</p>
+{{ end }}

@@ -1,0 +1,37 @@
+{{ define "main" }}
+{{ partial "breadcrumbs.html" . }}
+
+<article class="book" data-book-key="{{ .RelPermalink }}">
+  <header class="book-header{{ if not (partial "cover-path.html" .) }} no-cover{{ end }}">
+    {{ $cover := partial "cover-path.html" . }}
+    {{ with $cover }}
+      <div class="book-cover"><img src="{{ . | relURL }}" alt=""></div>
+    {{ end }}
+    <div class="book-info">
+      <h1>{{ .Title }}</h1>
+      {{ partial "book-meta.html" . }}
+      {{ with .Params.summary }}<p class="book-summary">{{ . }}</p>{{ end }}
+      <div class="book-actions">
+        {{ $chapters := .RegularPages.ByWeight }}
+        {{ if $chapters }}
+          {{ $first := index $chapters 0 }}
+          <a class="btn primary" href="{{ $first.RelPermalink }}" data-continue>开始阅读</a>
+        {{ end }}
+        <button class="btn toc-toggle" type="button" data-toc-toggle aria-controls="book-toc" aria-expanded="false">目录</button>
+      </div>
+      <div class="progress-note" data-progress-note hidden>上次读到：<a data-progress-link href="#"></a></div>
+    </div>
+  </header>
+
+  {{ with .Content }}<div class="book-intro markdown">{{ . }}</div>{{ end }}
+
+  <div class="toc-overlay" data-toc-overlay hidden></div>
+  <aside class="book-toc" id="book-toc" data-toc aria-label="章节目录">
+    <div class="toc-head">
+      <h2>目录</h2>
+      <button class="toc-close" type="button" data-toc-close aria-label="关闭目录">关闭</button>
+    </div>
+    {{ partial "chapter-list.html" . }}
+  </aside>
+</article>
+{{ end }}

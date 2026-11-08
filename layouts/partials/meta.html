@@ -1,0 +1,18 @@
+{{ $section := .Section }}
+{{ $author := .Params.author }}
+{{ $year := .Params.year }}
+{{ if eq $section "novel" }}
+  {{ with .Parent.Params.author }}{{ $author = . }}{{ end }}
+  {{ with .Parent.Params.year }}{{ $year = . }}{{ end }}
+{{ else }}
+  {{ if not $author }}{{ with .Parent.Params.author }}{{ $author = . }}{{ end }}{{ end }}
+{{ end }}
+{{ $collection := .Params.collection }}
+{{ if and (eq $section "story") (not $collection) }}{{ with .Parent }}{{ $collection = .Title }}{{ end }}{{ end }}
+{{ if or $author $year $collection }}
+<dl class="meta">
+  {{ with $author }}<dt>作者</dt><dd>{{ . }}</dd>{{ end }}
+  {{ with $year }}<dt>年份</dt><dd>{{ . }}</dd>{{ end }}
+  {{ with $collection }}<dt>合集</dt><dd><a href="{{ $.Parent.RelPermalink }}">{{ . }}</a></dd>{{ end }}
+</dl>
+{{ end }}

@@ -1,0 +1,18 @@
+{{ define "main" }}
+{{ partial "breadcrumbs.html" . }}
+
+{{ $position := partial "chapter-position.html" . }}
+<article class="reading" data-progress-key="{{ .Parent.RelPermalink }}" data-progress-title="{{ .Title }}">
+  <header class="reading-header">
+    <p class="kicker">{{ .Parent.Title }}{{ with $position }} · 第 {{ . }} 章{{ end }}</p>
+    <h1>{{ .Title }}</h1>
+    {{ partial "meta.html" . }}
+  </header>
+
+  <div class="reading-body markdown">
+    {{ .Content }}
+  </div>
+
+  {{ partial "reading-nav.html" . }}
+</article>
+{{ end }}

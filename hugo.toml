@@ -1,8 +1,27 @@
+# 经典小说 —— 单语言 Hugo 站点
+# 部署到 GitHub Pages / Cloudflare Pages 时，用 --baseURL 覆盖默认地址。
 baseURL = 'https://bookzh.com/'
-locale = 'zh-CN'
-defaultContentLanguage = 'zh'
 title = '经典小说'
+defaultContentLanguage = 'zh'
+locale = 'zh-CN'
 hasCJKLanguage = true
 enableRobotsTXT = true
-uglyURLs = true
+# 三个分区目录（content/novel、content/fiction、content/story）和章节文件名
+# 全部是小写 ASCII，所以保持 disablePathToLower = true 也不会产生大小写不一致的 URL。
+# 注意：不启用 uglyURLs。书籍/作者/合集页用目录形式（/novel/<slug>/），
+# 章节/篇目的 .html 地址由导入脚本写进 front matter 的 url 字段。
 disablePathToLower = true
+
+# 不生成标签/分类聚合页，避免文件数膨胀。
+disableKinds = ['taxonomy', 'term']
+
+[outputs]
+  home = ['HTML', 'RSS']
+  section = ['HTML']
+  page = ['HTML']
+
+[params]
+  description = '经典长篇 · 短篇 · 故事'
+
+# 文件预算：Cloudflare Pages 单次部署上限 20,000 个文件。
+# 目标：内容页控制在 8,000–9,000 个，总文件数留出 2,000 以上余量。

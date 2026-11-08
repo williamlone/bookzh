@@ -1,0 +1,39 @@
+{{ $section := .Section }}
+{{ $cfg := index hugo.Data.sections $section }}
+{{ $unit := "章" }}{{ with $cfg }}{{ $unit = .unit }}{{ end }}
+{{ $back := "目录" }}{{ with $cfg }}{{ $back = .back }}{{ end }}
+
+{{ $siblings := .Parent.RegularPages.ByWeight }}
+{{ $prev := "" }}
+{{ $next := "" }}
+{{ range $i, $p := $siblings }}
+  {{ if eq $p.RelPermalink $.RelPermalink }}
+    {{ if gt $i 0 }}{{ $prev = index $siblings (sub $i 1) }}{{ end }}
+    {{ if lt $i (sub (len $siblings) 1) }}{{ $next = index $siblings (add $i 1) }}{{ end }}
+  {{ end }}
+{{ end }}
+
+{{ if eq $section "novel" }}
+<nav class="reading-nav" aria-label="章节导航">
+  {{ with $prev }}
+    <a class="nav-btn prev" href="{{ .RelPermalink }}"><span class="nav-label">上一{{ $unit }}</span><span class="nav-title">{{ .Title }}</span></a>
+  {{ else }}
+    <span class="nav-btn disabled">已是第一{{ $unit }}</span>
+  {{ end }}
+  {{ with $next }}
+    <a class="nav-btn next" href="{{ .RelPermalink }}"><span class="nav-label">下一{{ $unit }}</span><span class="nav-title">{{ .Title }}</span></a>
+  {{ else }}
+    <span class="nav-btn disabled">已是最后一{{ $unit }}</span>
+  {{ end }}
+</nav>
+{{ else if or $prev $next }}
+<nav class="reading-nav" aria-label="篇目导航">
+  {{ with $prev }}<a class="nav-btn prev" href="{{ .RelPermalink }}"><span class="nav-label">上一{{ $unit }}</span><span class="nav-title">{{ .Title }}</span></a>{{ end }}
+  {{ with $next }}<a class="nav-btn next" href="{{ .RelPermalink }}"><span class="nav-label">下一{{ $unit }}</span><span class="nav-title">{{ .Title }}</span></a>{{ end }}
+</nav>
+{{ end }}
+
+<div class="back-links">
+  <a href="{{ .Parent.RelPermalink }}">← 回到{{ $back }}</a>
+  <a href="{{ "/" | relURL }}">首页</a>
+</div>

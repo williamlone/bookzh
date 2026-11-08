@@ -1,0 +1,5 @@
+{{ $data := dict "@context" "https://schema.org" "@type" "Book" "name" .Title "url" .Permalink "inLanguage" "zh-CN" }}
+{{ with .Params.summary }}{{ $data = merge $data (dict "description" .) }}{{ end }}
+{{ with .Params.author }}{{ $data = merge $data (dict "author" (dict "@type" "Person" "name" .)) }}{{ end }}
+{{ with .Params.year }}{{ $data = merge $data (dict "datePublished" (printf "%v" .)) }}{{ end }}
+<script type="application/ld+json">{{ $data | jsonify | safeJS }}</script>
