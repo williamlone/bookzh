@@ -7,10 +7,10 @@
 <section class="section-grid" aria-label="分区入口">
   {{ range $id, $s := hugo.Data.sections }}
     {{ $sec := site.GetPage (printf "/%s" $id) }}
-    <a class="section-card" href="{{ printf "/%s/" $id | relURL }}">
-      <span class="section-kicker">{{ $s.title }}</span>
-      <span class="section-intro">{{ $s.intro }}</span>
-      {{ with $sec }}
+    {{ with $sec }}
+      <a class="section-card" href="{{ .RelPermalink }}">
+        <span class="section-kicker">{{ $s.title }}</span>
+        <span class="section-intro">{{ $s.intro }}</span>
         <span class="section-count">
           {{ if eq $id "novel" }}
             {{ $count := 0 }}
@@ -20,9 +20,9 @@
             {{ len .Sections }} {{ $s.collection }} · {{ len .RegularPagesRecursive }} 篇
           {{ end }}
         </span>
-      {{ end }}
-      <span class="section-arrow" aria-hidden="true">→</span>
-    </a>
+        <span class="section-arrow" aria-hidden="true">→</span>
+      </a>
+    {{ end }}
   {{ end }}
 </section>
 
